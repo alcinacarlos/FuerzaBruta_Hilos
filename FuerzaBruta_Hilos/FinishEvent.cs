@@ -1,4 +1,4 @@
-namespace Fuerza_bruta;
+namespace FuerzaBruta_Hilos;
 
 public class FinishEvent
 {
