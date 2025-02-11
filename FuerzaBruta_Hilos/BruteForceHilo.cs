@@ -5,36 +5,36 @@ namespace FuerzaBruta_Hilos;
 
 public class BruteForceHilo
 {
-    Thread hilo;
-    private string hashedPassword;
-    private List<string> passwords;
-    private Wrapper<Action> finalizar;
-    private string passwordFinalizada;
+    private Thread _hilo;
+    private string _hashedPassword;
+    private List<string> _passwords;
+    private Wrapper<Action> _finalizar;
+    private string _passwordFinalizada;
 
     public BruteForceHilo(Wrapper<Action> finalizar, List<string> passwords, string hashedPassword)
     {
-        this.hashedPassword = hashedPassword;
-        this.passwords = passwords;
-        this.finalizar = finalizar;
-        hilo = new Thread(_process);
+        _hashedPassword = hashedPassword;
+        _passwords = passwords;
+        _finalizar = finalizar;
+        _hilo = new Thread(_process);
     }
 
     public void Start()
     {
-        hilo.Start();
+        _hilo.Start();
     }
 
     void _process()
     {
         // 3. Simular un ataque de fuerza bruta para adivinar la contraseña elegida
         Console.WriteLine("Iniciando ataque: ");
-        foreach (string password in passwords)
+        foreach (string password in _passwords)
         {
-            string hash = Utils.calcularHash256(password);
-            if (hash == hashedPassword)
+            string hash = Utils.CalcularHash256(password);
+            if (hash == _hashedPassword)
             {
-                passwordFinalizada = password;
-                finalizar.Value.Invoke();
+                _passwordFinalizada = password;
+                _finalizar.Value.Invoke();
                 Console.WriteLine($"Contraseña encontrada: {password}");
                 break;
             }
